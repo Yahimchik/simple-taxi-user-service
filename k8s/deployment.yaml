@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taxi-user-service
+  labels:
+    app: taxi-user-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: taxi-user-service
+  template:
+    metadata:
+      labels:
+        app: taxi-user-service
+    spec:
+      containers:
+        - name: taxi-user-service
+          image: yahim202002/simple-taxi-user-service:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "prod"
