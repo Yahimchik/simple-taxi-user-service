@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="4" author="Egor Yahimovich">
+        <!-- Добавляем колонку status -->
+        <addColumn tableName="users">
+            <column name="status" type="varchar(50)" defaultValue="WAITING_ACTIVATION">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+
+        <!-- Создаем таблицу verification_tokens -->
+        <createTable tableName="verification_tokens">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="token" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="user_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expiry_date" type="timestamp"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="verification_tokens"
+                baseColumnNames="user_id"
+                referencedTableName="users"
+                referencedColumnNames="id"
+                constraintName="fk_verification_token_user"/>
+    </changeSet>
+
+</databaseChangeLog>

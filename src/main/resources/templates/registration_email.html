@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Подтверждение регистрации</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', Arial, sans-serif;
+            background-color: #f5f5f7;
+            color: #333;
+        }
+        .email-wrapper {
+            width: 100%;
+            padding: 30px 0;
+            display: flex;
+            justify-content: center;
+        }
+        .email-container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 90%;
+            padding: 40px;
+            text-align: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff3c00;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+        .btn-confirm {
+            display: inline-block;
+            padding: 14px 25px;
+            background: linear-gradient(90deg, #ff3c00, #ff6a00);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+        .btn-confirm:hover {
+            background: linear-gradient(90deg, #ff6a00, #ff3c00);
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #999;
+        }
+        @media (max-width: 600px) {
+            .email-container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="email-wrapper">
+    <div class="email-container">
+        <div class="logo">TaxiSimple</div>
+        <h1>Добро пожаловать, <span th:text="${username}">Пользователь</span>!</h1>
+        <p>Чтобы завершить регистрацию и начать пользоваться приложением, пожалуйста, подтвердите свой email:</p>
+        <a class="btn-confirm" th:href="${confirmationUrl}">Подтвердить регистрацию</a>
+        <div class="footer">
+            Если вы не регистрировались на TaxiSimple, просто проигнорируйте это письмо.
+        </div>
+    </div>
+</div>
+</body>
+</html>

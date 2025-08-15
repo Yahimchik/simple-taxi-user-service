@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:auth_service_db}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:123}
+    driver-class-name: org.postgresql.Driver
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:auth_service_db}
+    user: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:123}
+
+  application:
+    security:
+      jwt:
+        secret:
+          access: 2cKYszGG9GYs8vT6zAlXMGxgUG+Evf7G3MTk5Q0TSjte42vX02+VwVtb+/rzkjydspol09wEc+jusPnvgy//qw==
+          refresh: cH79ZXZg3R4/7Ln44kwdM4HENomxpjFAQW6qszDRKbKf9wGhMYDC1JbRNMzbA7GWJFkww/F4mNYH39rqd75A4Q==
+
+  mail:
+    host: mail.simple-taxi.group
+    port: 587
+    username: info@simple-taxi.group
+    password: "%SDUOj7g9"
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enabled: true
+    debug: true
+
