@@ -37,21 +37,21 @@ jobs:
           push: true
           tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
 
-      # 5. Set up kubectl
-      - name: Set up kubectl
-        uses: azure/setup-kubectl@v3
-        with:
-          version: 'v1.30.0'
+      # # 5. Set up kubectl (пока закомментировано)
+      # - name: Set up kubectl
+      #   uses: azure/setup-kubectl@v3
+      #   with:
+      #     version: 'v1.30.0'
 
-      # 6. Deploy to Kubernetes
-      - name: Deploy to Kubernetes
-        env:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-        run: |
-          echo "$KUBE_CONFIG_DATA" | base64 --decode > kubeconfig
-          export KUBECONFIG=kubeconfig
-          kubectl apply -f k8s/configmap.yaml
-          kubectl apply -f k8s/secret.yaml
-          kubectl apply -f k8s/deployment.yaml
-          kubectl apply -f k8s/service.yaml
-          kubectl apply -f k8s/ingress.yaml
+      # # 6. Deploy to Kubernetes (пока закомментировано)
+      # - name: Deploy to Kubernetes
+      #   env:
+      #     KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+      #   run: |
+      #     echo "$KUBE_CONFIG_DATA" | base64 --decode > kubeconfig
+      #     export KUBECONFIG=kubeconfig
+      #     kubectl apply -f k8s/configmap.yaml
+      #     kubectl apply -f k8s/secret.yaml
+      #     kubectl apply -f k8s/deployment.yaml
+      #     kubectl apply -f k8s/service.yaml
+      #     kubectl apply -f k8s/ingress.yaml
