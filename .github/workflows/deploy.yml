@@ -18,7 +18,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2. Set up Docker
+      # 2. Set up Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -33,6 +33,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
+          context: .
           push: true
           tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
 
@@ -42,7 +43,7 @@ jobs:
         with:
           version: 'v1.30.0'
 
-      # 6. Apply Kubernetes manifests
+      # 6. Deploy to Kubernetes
       - name: Deploy to Kubernetes
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
