@@ -18,8 +18,7 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
 # Переменные окружения по умолчанию — пустые строки, чтобы Docker не ругался
-ENV DB_HOST=""
-ENV DB_PORT=""
+ENV DB_URL=""
 ENV DB_NAME=""
 ENV DB_USERNAME=""
 ENV DB_PASSWORD=""
