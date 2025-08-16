@@ -20,7 +20,7 @@ public class MailConfig {
     private int port;
     @Value("${spring.mail.protocol}")
     private String protocol;
-    @Value("${spring.mail.debug}")
+    @Value("${spring.mail.debug:false}")
     private String debug;
 
     @Bean
