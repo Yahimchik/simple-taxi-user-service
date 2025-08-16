@@ -16,8 +16,8 @@ spring:
     security:
       jwt:
         secret:
-          access: ${ACCESS_TOKEN}
-          refresh: ${REFRESH_TOKEN}
+          access: ${ACCESS_TOKEN:defaultAccessTokenBase64}
+          refresh: ${REFRESH_TOKEN:defaultRefreshTokenBase64}
 
   mail:
     host: localhost
