@@ -37,8 +37,8 @@ jobs:
           push: true
           tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
 
-      # 5. Deploy to Render
-      - name: Deploy to Render
+            # 5. Update env vars in Render
+      - name: Update Render Env Vars
         env:
           RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
@@ -46,18 +46,28 @@ jobs:
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
-          curl -X POST "https://api.render.com/deploy/srv-${RENDER_SERVICE_ID}" \
+          curl -X PATCH "https://api.render.com/v1/services/${RENDER_SERVICE_ID}" \
             -H "Accept: application/json" \
             -H "Authorization: Bearer ${RENDER_API_KEY}" \
             -H "Content-Type: application/json" \
             -d '{
-                  "clearCache": true,
                   "envVars": [
                     {"key":"DB_URL","value":"'"${DB_URL}"'"},
                     {"key":"DB_USERNAME","value":"'"${DB_USERNAME}"'"},
                     {"key":"DB_PASSWORD","value":"'"${DB_PASSWORD}"'"}
                   ]
                 }'
+
+      # 6. Trigger deploy on Render
+      - name: Trigger Render Deploy
+        env:
+          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+        run: |
+          curl -X POST "https://api.render.com/v1/services/${RENDER_SERVICE_ID}/deploys" \
+            -H "Accept: application/json" \
+            -H "Authorization: Bearer ${RENDER_API_KEY}"
+
 
 
 
